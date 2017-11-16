@@ -26,7 +26,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var redball: SKSpriteNode!
     var yellowball: SKSpriteNode!
     var platforms: [SKSpriteNode] = []
-    
+  var inventoryBalls: [SKSpriteNode] = []
+  var cannonAngle:CGFloat = 0
+  var touchCount:Int = 0
+  var resetButton: SKSpriteNode!
     var white = SKColor(red: 1, green: 1, blue: 1, alpha: 1)
     var blue = SKColor(red: 0, green: 0, blue: 1, alpha: 1)
     var red = SKColor(red: 1, green: 0, blue: 0, alpha: 1)
@@ -35,12 +38,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var purple = SKColor(red: 0.75, green: 0, blue: 0.75, alpha: 1)
     var orange = SKColor(red: 1, green: 0.5, blue: 0, alpha: 1)
     var black = SKColor(red: 0, green: 0, blue: 0, alpha: 1)
-    
+  
+  var yellowLaunchBall: SKSpriteNode!
+  var blueLaunchBall: SKSpriteNode!
+  var redLaunchBall: SKSpriteNode!
     
     override func didMove(to view: SKView) {
         
         physicsWorld.contactDelegate = self
-        
+ /*
         blueball = childNode(withName: "blueball") as! SKSpriteNode
         blueball.color = blue
         blueball.physicsBody?.categoryBitMask = PhysicsCategory.Ball
@@ -58,14 +64,62 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         yellowball.physicsBody?.categoryBitMask = PhysicsCategory.Ball
         yellowball.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
         yellowball.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        
+   */
         for child in self.children {
+          if child.name == "resetButton"{
+           // child.isUserInteractionEnabled = false
+            resetButton = child as? SKSpriteNode
+          }
+          if child.name == "redball"{
+            if let child = child as? SKSpriteNode {
+
+              child.color = red
+              child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
+              child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+              child.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+              redLaunchBall = child
+            }
+          }
+          if child.name == "launchball"{
+            if let child = child as? SKSpriteNode{
+            //var blueTexture = SKTexture(image: "BlueBall.png")
+              if(child.color == blue){
+             //   child.color = yellow
+              }
+              child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
+              child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+              child.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+              inventoryBalls.append(child)
+              
+            }
+          }
+          if child.name == "yellowball" {
+            if let child = child as? SKSpriteNode {
+
+              child.color = yellow
+              child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
+              child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+              child.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+              yellowLaunchBall = child
+            }
+          }
+          if child.name == "blueball" {
+            if let child = child as? SKSpriteNode {
+
+              child.color = blue
+              child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
+              child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+              child.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+              blueLaunchBall = child
+            }
+          }
             if child.name == "platform" {
                 if let child = child as? SKSpriteNode {
                     child.color = white
                     child.physicsBody?.categoryBitMask = PhysicsCategory.Platform
                     child.physicsBody?.contactTestBitMask = PhysicsCategory.Ball
                     child.physicsBody?.collisionBitMask = PhysicsCategory.Ball
+                  
                     platforms.append(child)
                 }
             }
@@ -163,9 +217,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             n.strokeColor = SKColor.green
             self.addChild(n)
         }
-      let cannon : SKSpriteNode! = childNode(withName: "cannonBarrel") as! SKSpriteNode
+      
 
-      print(cannon)
+      //print(cannon)
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -174,6 +228,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             n.strokeColor = SKColor.blue
             self.addChild(n)
         }
+      let touch = pos
+      
+      if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
+        print(cannon)
+        let dX = cannon.position.x - touch.x
+        let dY = cannon.position.y - touch.y
+        let angle = atan2(dY, dX)
+        cannon.zRotation = angle + (.pi / 180)
+        cannonAngle = angle + (.pi / 180);
+      }
     }
     
     func touchUp(atPoint pos : CGPoint) {
@@ -182,13 +246,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             n.strokeColor = SKColor.red
             self.addChild(n)
         }
+      let touch = pos
+     // var newBall = childNode(withName: "blueball") as! SKSpriteNode
+
+      if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
+        print(cannon)
+        if(inventoryBalls.count > 0){
+          let removeBall = inventoryBalls[0]
+          inventoryBalls.remove(at: 0)
+          removeBall.removeFromParent()
+        }
+        if(touchCount == 0){
+        blueLaunchBall.position = cannon.position
+       // blueLaunchBall.zRotation = cannonAngle
+        var launchX =  1000 * cos(cannonAngle) * -1
+        var launchY = 1000 * sin(cannonAngle) * -1
+        blueLaunchBall.physicsBody?.linearDamping = 0.0
+        //blueLaunchBall.physicsBody?.velocity = CGVector(dx: 700, dy: 0)
+        blueLaunchBall.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
+        
+        
+    //    newBall.color = blue
+    //    newBall.physicsBody = SKPhysicsBody(circleOfRadius: max(newBall.size.width / 2, newBall.size.height / 2))
+    //    newBall.physicsBody?.categoryBitMask = PhysicsCategory.Ball
+    //    newBall.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+    //    newBall.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+    //    newBall.position = cannon.position
+    //    print(newBall)
+        }
+        if(touchCount == 1){
+          redLaunchBall.position = cannon.position
+          // blueLaunchBall.zRotation = cannonAngle
+          var launchX =  1000 * cos(cannonAngle) * -1
+          var launchY = 1000 * sin(cannonAngle) * -1
+          redLaunchBall.physicsBody?.linearDamping = 0.0
+          //blueLaunchBall.physicsBody?.velocity = CGVector(dx: 700, dy: 0)
+          redLaunchBall.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
+        }
+      }
+      touchCount = touchCount + 1
+     //self.addChild(newBall)
+
     }
+  func reset(){
+    print(self.name)
+    let currScene:SKScene = SKScene(fileNamed: "cannonTest")!
+      removeAllActions()
+      removeAllChildren()
     
+      let transition = SKTransition.fade(withDuration: 1) // create type of transition (you can check in documentation for more transtions)
+      currScene.scaleMode = SKSceneScaleMode.fill
+      self.view!.presentScene(currScene, transition: transition)
+    }
+  
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let label = self.label {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         }
-        
+        let touch = touches.first as UITouch!
+        let touchLocation = touch?.location(in: self)
+      let targetNode = atPoint((touch?.location(in: self))!) as! SKSpriteNode
+        if(targetNode == resetButton){
+          reset()
+        }
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
