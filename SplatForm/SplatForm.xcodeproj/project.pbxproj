@@ -10,6 +10,7 @@
 		3F6E48531FBCD326004016F8 /* YellowBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6E48501FBCD325004016F8 /* YellowBall.png */; };
 		3F6E48541FBCD326004016F8 /* RedBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6E48511FBCD325004016F8 /* RedBall.png */; };
 		3F6E48561FBCD385004016F8 /* BlueBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6E48551FBCD385004016F8 /* BlueBall.png */; };
+		3FDEEE2E1FBD2000005E70ED /* testScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FDEEE2D1FBD2000005E70ED /* testScene.sks */; };
 		3FFDCA2F1FBB42C1008C40AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFDCA2E1FBB42C1008C40AE /* AppDelegate.swift */; };
 		3FFDCA311FBB42C1008C40AE /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FFDCA301FBB42C1008C40AE /* GameScene.sks */; };
 		3FFDCA331FBB42C1008C40AE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FFDCA321FBB42C1008C40AE /* Actions.sks */; };
@@ -24,6 +25,7 @@
 		3F6E48501FBCD325004016F8 /* YellowBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowBall.png; sourceTree = "<group>"; };
 		3F6E48511FBCD325004016F8 /* RedBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedBall.png; sourceTree = "<group>"; };
 		3F6E48551FBCD385004016F8 /* BlueBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueBall.png; sourceTree = "<group>"; };
+		3FDEEE2D1FBD2000005E70ED /* testScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = testScene.sks; sourceTree = "<group>"; };
 		3FFDCA2B1FBB42C1008C40AE /* SplatForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplatForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFDCA2E1FBB42C1008C40AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FFDCA301FBB42C1008C40AE /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				3FFDCA301FBB42C1008C40AE /* GameScene.sks */,
+				3FDEEE2D1FBD2000005E70ED /* testScene.sks */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				3F6E48541FBCD326004016F8 /* RedBall.png in Resources */,
 				3FFDCA3F1FBB42C1008C40AE /* LaunchScreen.storyboard in Resources */,
 				3FFDCA331FBB42C1008C40AE /* Actions.sks in Resources */,
+				3FDEEE2E1FBD2000005E70ED /* testScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

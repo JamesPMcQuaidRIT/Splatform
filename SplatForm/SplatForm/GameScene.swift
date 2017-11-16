@@ -18,7 +18,7 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
+    var cannon : SKSpriteNode!
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     
@@ -163,6 +163,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             n.strokeColor = SKColor.green
             self.addChild(n)
         }
+      let cannon : SKSpriteNode! = childNode(withName: "cannonBarrel") as! SKSpriteNode
+
+      print(cannon)
     }
     
     func touchMoved(toPoint pos : CGPoint) {
