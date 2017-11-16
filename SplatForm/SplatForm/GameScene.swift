@@ -290,7 +290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
   func reset(){
     print(self.name)
-    let currScene:SKScene = SKScene(fileNamed: "cannonTest")!
+    let currScene:SKScene = SKScene(fileNamed: "cannonTest2")!
       removeAllActions()
       removeAllChildren()
     
