@@ -26,10 +26,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var redball: SKSpriteNode!
     var yellowball: SKSpriteNode!
     var platforms: [SKSpriteNode] = []
-  var inventoryBalls: [SKSpriteNode] = []
-  var cannonAngle:CGFloat = 0
-  var touchCount:Int = 0
-  var resetButton: SKSpriteNode!
+    var inventoryBalls: [SKSpriteNode] = []
+    var cannonAngle:CGFloat = 0
+    var touchCount:Int = 0
+    var resetButton: SKSpriteNode!
     var white = SKColor(red: 1, green: 1, blue: 1, alpha: 1)
     var blue = SKColor(red: 0, green: 0, blue: 1, alpha: 1)
     var red = SKColor(red: 1, green: 0, blue: 0, alpha: 1)
@@ -39,32 +39,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var orange = SKColor(red: 1, green: 0.5, blue: 0, alpha: 1)
     var black = SKColor(red: 0, green: 0, blue: 0, alpha: 1)
   
-  var yellowLaunchBall: SKSpriteNode!
-  var blueLaunchBall: SKSpriteNode!
-  var redLaunchBall: SKSpriteNode!
-    
+    var yellowLaunchBall: SKSpriteNode!
+    var blueLaunchBall: SKSpriteNode!
+    var redLaunchBall: SKSpriteNode!
+  
+  var ballToLaunch: SKSpriteNode!
+  
     override func didMove(to view: SKView) {
         
         physicsWorld.contactDelegate = self
- /*
-        blueball = childNode(withName: "blueball") as! SKSpriteNode
-        blueball.color = blue
-        blueball.physicsBody?.categoryBitMask = PhysicsCategory.Ball
-        blueball.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
-        blueball.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        
-        redball = childNode(withName: "redball") as! SKSpriteNode
-        redball.color = red
-        redball.physicsBody?.categoryBitMask = PhysicsCategory.Ball
-        redball.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
-        redball.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        
-        yellowball = childNode(withName: "yellowball") as! SKSpriteNode
-        yellowball.color = yellow
-        yellowball.physicsBody?.categoryBitMask = PhysicsCategory.Ball
-        yellowball.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
-        yellowball.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-   */
+
         for child in self.children {
           if child.name == "resetButton"{
            // child.isUserInteractionEnabled = false
@@ -212,22 +196,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
+      //  if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+      //     n.position = pos
+       //     n.strokeColor = SKColor.green
+      //      self.addChild(n)
+      //  }
       
 
       //print(cannon)
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+      //  if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+      //      n.position = pos
+      //      n.strokeColor = SKColor.blue
+      //      self.addChild(n)
+      //  }
       let touch = pos
       
       if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
@@ -256,41 +240,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           inventoryBalls.remove(at: 0)
           removeBall.removeFromParent()
         }
-        if(touchCount == 0){
-        blueLaunchBall.position = cannon.position
-       // blueLaunchBall.zRotation = cannonAngle
+        if(ballToLaunch != nil){
+        ballToLaunch.position = cannon.position
         var launchX =  1000 * cos(cannonAngle) * -1
         var launchY = 1000 * sin(cannonAngle) * -1
-        blueLaunchBall.physicsBody?.linearDamping = 0.0
-        //blueLaunchBall.physicsBody?.velocity = CGVector(dx: 700, dy: 0)
-        blueLaunchBall.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
-        
-        
-    //    newBall.color = blue
-    //    newBall.physicsBody = SKPhysicsBody(circleOfRadius: max(newBall.size.width / 2, newBall.size.height / 2))
-    //    newBall.physicsBody?.categoryBitMask = PhysicsCategory.Ball
-    //    newBall.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
-    //    newBall.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-    //    newBall.position = cannon.position
-    //    print(newBall)
-        }
-        if(touchCount == 1){
-          redLaunchBall.position = cannon.position
-          // blueLaunchBall.zRotation = cannonAngle
-          var launchX =  1000 * cos(cannonAngle) * -1
-          var launchY = 1000 * sin(cannonAngle) * -1
-          redLaunchBall.physicsBody?.linearDamping = 0.0
-          //blueLaunchBall.physicsBody?.velocity = CGVector(dx: 700, dy: 0)
-          redLaunchBall.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
-        }
-      }
+        ballToLaunch.physicsBody?.linearDamping = 0.0
+        ballToLaunch.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
+
       touchCount = touchCount + 1
      //self.addChild(newBall)
-
+        }
     }
+  }
   func reset(){
     print(self.name)
-    let currScene:SKScene = SKScene(fileNamed: "cannonTest2")!
+    let currScene:SKScene = SKScene(fileNamed: "cannonTest")!
       removeAllActions()
       removeAllChildren()
     
@@ -305,13 +269,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         let touch = touches.first as UITouch!
         let touchLocation = touch?.location(in: self)
-      let targetNode = atPoint((touch?.location(in: self))!) as! SKSpriteNode
+        let targetNode = atPoint((touch?.location(in: self))!) as! SKSpriteNode
         if(targetNode == resetButton){
           reset()
         }
+        if(targetNode.name == "redInv"){
+          print("red clicked")
+          readyRed();
+        }
+      if(targetNode.name == "blueInv"){
+        print("blue clicked")
+      }
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
-    
+  func readyBlue(){    ballToLaunch = redLaunchBall; }
+  
+  func readyRed(){
+    ballToLaunch = redLaunchBall;
+  }
+  func readyYellow(){}
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
     }
