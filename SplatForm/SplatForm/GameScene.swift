@@ -275,17 +275,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if(targetNode.name == "redInv"){
           print("red clicked")
-          readyRed();
+          readyRed()
         }
       if(targetNode.name == "blueInv"){
         print("blue clicked")
+        readyBlue()
       }
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
-  func readyBlue(){    ballToLaunch = redLaunchBall; }
+  func readyBlue(){
+    ballToLaunch = blueLaunchBall
+    print(ballToLaunch)
+  }
   
   func readyRed(){
-    ballToLaunch = redLaunchBall;
+    ballToLaunch = redLaunchBall
+    print(ballToLaunch)
   }
   func readyYellow(){}
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
