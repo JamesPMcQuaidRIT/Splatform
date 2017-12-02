@@ -21,34 +21,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var cannon : SKSpriteNode!
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    
-    var blueball: SKSpriteNode!
-    var redball: SKSpriteNode!
-    var yellowball: SKSpriteNode!
-    var platforms: [SKSpriteNode] = []
-    var inventoryBalls: [SKSpriteNode] = []
-    var cannonAngle:CGFloat = 0
-    var touchCount:Int = 0
-    var resetButton: SKSpriteNode!
-    var white = SKColor(red: 1, green: 1, blue: 1, alpha: 1)
-    var blue = SKColor(red: 0, green: 0, blue: 1, alpha: 1)
-    var red = SKColor(red: 1, green: 0, blue: 0, alpha: 1)
-    var yellow = SKColor(red: 1, green: 1, blue: 0, alpha: 1)
-    var green = SKColor(red: 0, green: 1, blue: 0, alpha: 1)
-    var purple = SKColor(red: 0.75, green: 0, blue: 0.75, alpha: 1)
-    var orange = SKColor(red: 1, green: 0.5, blue: 0, alpha: 1)
-    var black = SKColor(red: 0, green: 0, blue: 0, alpha: 1)
   
-    var yellowLaunchBall: SKSpriteNode!
-    var blueLaunchBall: SKSpriteNode!
-    var redLaunchBall: SKSpriteNode!
+  var levelNum:Int = 1
+  var sceneManager:SceneManager = GameViewController()
+    
+  var blueball: SKSpriteNode!
+  var redball: SKSpriteNode!
+  var yellowball: SKSpriteNode!
+  var platforms: [SKSpriteNode] = []
+  var inventoryBalls: [SKSpriteNode] = []
+  var cannonAngle:CGFloat = 0
+  var touchCount:Int = 0
+  var resetButton: SKSpriteNode!
+  var white = SKColor(red: 1, green: 1, blue: 1, alpha: 1)
+  var blue = SKColor(red: 0, green: 0, blue: 1, alpha: 1)
+  var red = SKColor(red: 1, green: 0, blue: 0, alpha: 1)
+  var yellow = SKColor(red: 1, green: 1, blue: 0, alpha: 1)
+  var green = SKColor(red: 0, green: 1, blue: 0, alpha: 1)
+  var purple = SKColor(red: 0.75, green: 0, blue: 0.75, alpha: 1)
+  var orange = SKColor(red: 1, green: 0.5, blue: 0, alpha: 1)
+  var black = SKColor(red: 0, green: 0, blue: 0, alpha: 1)
+  
+  var yellowLaunchBall: SKSpriteNode!
+  var blueLaunchBall: SKSpriteNode!
+  var redLaunchBall: SKSpriteNode!
   
   var ballToLaunch: SKSpriteNode!
+  
+  var colorToWin:SKColor!
+  var correctPlatforms = 0
+  
+  class func loadLevel(_ levelNum: Int, size: CGSize, scaleMode: SKSceneScaleMode, sceneManager:SceneManager) -> GameScene?{
+    let scene = GameScene(fileNamed: "level\(levelNum)")!
+    scene.levelNum = levelNum
+    scene.size = size
+    scene.scaleMode = scaleMode
+    scene.sceneManager = sceneManager
+    return scene
+  }
   
     override func didMove(to view: SKView) {
         
         physicsWorld.contactDelegate = self
-
+      
+      if(levelNum == 1){
+        colorToWin = purple
+      } else {
+        colorToWin = red
+      }
+      
         for child in self.children {
           if child.name == "resetButton"{
            // child.isUserInteractionEnabled = false
@@ -192,6 +213,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 platform.color = black
             }
         }
+      
+      for platform in self.platforms{
+        if(platform.color == colorToWin){
+          correctPlatforms += 1
+          print("\(correctPlatforms)")
+          if(correctPlatforms == self.platforms.count){
+            if(levelNum == 1){//Currently Hardcoded for testing purposes will fully transition when begining and end screen are made
+              sceneManager.loadGameScene(levelNum: levelNum + 1)
+            } else {
+              sceneManager.loadGameScene(levelNum: 1)
+            }
+          }
+        }
+      }
+      correctPlatforms = 0;
     }
     
     
@@ -253,14 +289,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
   }
   func reset(){
-    print(self.name)
-    let currScene:SKScene = SKScene(fileNamed: "cannonTest")!
-      removeAllActions()
-      removeAllChildren()
+    //print(self.name)
+    //let currScene:SKScene = SKScene(fileNamed: "level\(levelNum)")!
+      //removeAllActions()
+      //removeAllChildren()
     
-      let transition = SKTransition.fade(withDuration: 1) // create type of transition (you can check in documentation for more transtions)
-      currScene.scaleMode = SKSceneScaleMode.fill
-      self.view!.presentScene(currScene, transition: transition)
+      //let transition = SKTransition.fade(withDuration: 1) // create type of transition (you can check in documentation for more transtions)
+      //currScene.scaleMode = SKSceneScaleMode.fill
+      sceneManager.reloadGameScene(levelNum: levelNum)
     }
   
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
