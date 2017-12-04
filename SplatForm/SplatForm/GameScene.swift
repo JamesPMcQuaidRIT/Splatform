@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var spinnyNode : SKShapeNode?
   
   var levelNum:Int = 1
+  var numberOfLevels = 5
   var sceneManager:SceneManager = GameViewController()
     
   var blueball: SKSpriteNode!
@@ -65,9 +66,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
       
       if(levelNum == 1){
+        colorToWin = blue
+      } else if(levelNum == 2) {
         colorToWin = purple
-      } else {
+      } else if(levelNum == 3){
+        colorToWin = purple
+      } else if(levelNum == 4){
         colorToWin = red
+      } else if(levelNum == 5){
+        colorToWin = purple
       }
       
         for child in self.children {
@@ -219,10 +226,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           correctPlatforms += 1
           print("\(correctPlatforms)")
           if(correctPlatforms == self.platforms.count){
-            if(levelNum == 1){//Currently Hardcoded for testing purposes will fully transition when begining and end screen are made
-              sceneManager.loadGameScene(levelNum: levelNum + 1)
+            if(levelNum > numberOfLevels){//Currently Hardcoded for testing purposes will fully transition when begining and end screen are made
+              levelNum = 1
+              sceneManager.loadGameScene(levelNum: levelNum)
             } else {
-              sceneManager.loadGameScene(levelNum: 1)
+              sceneManager.loadGameScene(levelNum: levelNum + 1)
             }
           }
         }
@@ -305,7 +313,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         let touch = touches.first as UITouch!
         let touchLocation = touch?.location(in: self)
-        let targetNode = atPoint((touch?.location(in: self))!) as! SKSpriteNode
+        let targetNode = atPoint((touch?.location(in: self))!) as! SKNode
         if(targetNode == resetButton){
           reset()
         }
