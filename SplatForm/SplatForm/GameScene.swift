@@ -48,7 +48,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   var redLaunchBall: SKSpriteNode!
   
   var ballToLaunch: SKSpriteNode!
-  
+  var ballLoaded:Bool = false
+  var ballPrimed:Bool = false
   var colorToWin:SKColor!
   var correctPlatforms = 0
   
@@ -276,7 +277,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
       let touch = pos
      // var newBall = childNode(withName: "blueball") as! SKSpriteNode
-
+ 
       if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
         print(cannon)
         if(inventoryBalls.count > 0){
@@ -284,18 +285,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           inventoryBalls.remove(at: 0)
           removeBall.removeFromParent()
         }
-        if(ballToLaunch != nil){
-        ballToLaunch.position = cannon.position
-        var launchX =  1000 * cos(cannonAngle) * -1
-        var launchY = 1000 * sin(cannonAngle) * -1
-        ballToLaunch.physicsBody?.linearDamping = 0.0
-        ballToLaunch.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
+        if(!ballLoaded){
+          //error - ball not loaded
+          if(ballPrimed){
+            ballLoaded = true
+            ballPrimed = false
+          }
+        }
+        else{
+          ballToLaunch.position = cannon.position
+          var launchX:CGFloat = 0
+          var launchY:CGFloat = 0
+          if(cannonAngle != 0){
+            launchX =  1000 * cos(cannonAngle) * -1
+            launchY =  1000 * sin(cannonAngle) * -1
+            
+          }else{
+            launchX =  1000 * cos(cannonAngle)
+            launchY = 1000 * sin(cannonAngle) * -1
+          }
+          ballToLaunch.physicsBody?.linearDamping = 0.0
+          ballToLaunch.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
+          
+          touchCount = touchCount + 1
+          ballLoaded = false;
+        }
 
-      touchCount = touchCount + 1
      //self.addChild(newBall)
         }
     }
-  }
+  
   func reset(){
     //print(self.name)
     //let currScene:SKScene = SKScene(fileNamed: "level\(levelNum)")!
@@ -329,11 +348,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
   func readyBlue(){
     ballToLaunch = blueLaunchBall
+    ballPrimed = true;
     print(ballToLaunch)
   }
   
   func readyRed(){
     ballToLaunch = redLaunchBall
+    ballPrimed = true;
     print(ballToLaunch)
   }
   func readyYellow(){}
