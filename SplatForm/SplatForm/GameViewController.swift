@@ -30,7 +30,7 @@ class GameViewController: UIViewController, SceneManager {
             //    view.presentScene(scene)
             //}
             skView = self.view as! SKView
-            loadGameScene(levelNum: 1);
+            loadHomeScene();
             
             view.ignoresSiblingOrder = true
             
@@ -39,16 +39,23 @@ class GameViewController: UIViewController, SceneManager {
         }
     }
     
-    func loadGameScene(levelNum: Int){
-        gameScene = GameScene.loadLevel(levelNum, size: screenSize, scaleMode: scaleMode, sceneManager: self)
+    func loadHomeScene(){
+        let scene = HomeScene.loadLevel(size: screenSize, scaleMode: scaleMode, sceneManager: self)
+        let reveal = SKTransition.fade(withDuration: 1)
+        
+        skView.presentScene(scene!, transition: reveal)
+    }
+    
+    func loadGameScene(levelNum: Int, ballsUsed: Int){
+        gameScene = GameScene.loadLevel(levelNum, ballsUsed: ballsUsed, size: screenSize, scaleMode: scaleMode, sceneManager: self)
         
         let reveal = SKTransition.doorsOpenHorizontal(withDuration: 1)
         
         skView.presentScene(gameScene!, transition: reveal)
     }
     
-    func reloadGameScene(levelNum: Int){
-        gameScene = GameScene.loadLevel(levelNum, size: screenSize, scaleMode: scaleMode, sceneManager: self)
+    func reloadGameScene(levelNum: Int, ballsUsed: Int){
+        gameScene = GameScene.loadLevel(levelNum, ballsUsed: ballsUsed, size: screenSize, scaleMode: scaleMode, sceneManager: self)
         
         let reveal = SKTransition.fade(withDuration: 1)
         

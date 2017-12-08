@@ -9,6 +9,7 @@
 import Foundation
 
 protocol SceneManager{
-    func loadGameScene(levelNum: Int)
-    func reloadGameScene(levelNum: Int)
+    func loadHomeScene()
+    func loadGameScene(levelNum: Int, ballsUsed: Int)
+    func reloadGameScene(levelNum: Int, ballsUsed: Int)
 }

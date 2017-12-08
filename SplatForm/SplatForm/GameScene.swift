@@ -18,9 +18,9 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var cannon : SKSpriteNode!
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+  var cannon : SKSpriteNode!
+  private var label : SKLabelNode?
+  private var spinnyNode : SKShapeNode?
   
   var levelNum:Int = 1
   var numberOfLevels = 5
@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   var cannonAngle:CGFloat = 0
   var touchCount:Int = 0
   var resetButton: SKSpriteNode!
+  
   var white = SKColor(red: 1, green: 1, blue: 1, alpha: 1)
   var blue = SKColor(red: 0, green: 0, blue: 1, alpha: 1)
   var red = SKColor(red: 1, green: 0, blue: 0, alpha: 1)
@@ -50,12 +51,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   var ballToLaunch: SKSpriteNode!
   var ballLoaded:Bool = false
   var ballPrimed:Bool = false
+  var ballsUsed:Int = 0
+  var scoreLabel:SKLabelNode?
   var colorToWin:SKColor!
   var correctPlatforms = 0
   
-  class func loadLevel(_ levelNum: Int, size: CGSize, scaleMode: SKSceneScaleMode, sceneManager:SceneManager) -> GameScene?{
+  class func loadLevel(_ levelNum: Int, ballsUsed: Int, size: CGSize, scaleMode: SKSceneScaleMode, sceneManager:SceneManager) -> GameScene?{
     let scene = GameScene(fileNamed: "level\(levelNum)")!
     scene.levelNum = levelNum
+    scene.ballsUsed = ballsUsed
     scene.size = size
     scene.scaleMode = scaleMode
     scene.sceneManager = sceneManager
@@ -64,7 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   
     override func didMove(to view: SKView) {
         
-        physicsWorld.contactDelegate = self
+      physicsWorld.contactDelegate = self
       
       if(levelNum == 1){
         colorToWin = blue
@@ -79,6 +83,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       }
       
         for child in self.children {
+          if child.name == "score"{
+            scoreLabel = child as? SKLabelNode
+            scoreLabel?.text = "Balls Used: \(ballsUsed)"
+          }
           if child.name == "resetButton"{
            // child.isUserInteractionEnabled = false
             resetButton = child as? SKSpriteNode
@@ -136,29 +144,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     platforms.append(child)
                 }
             }
-        }
-        
-        
-        
-        /*// Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }*/
+      }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -229,9 +215,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           if(correctPlatforms == self.platforms.count){
             if(levelNum > numberOfLevels){//Currently Hardcoded for testing purposes will fully transition when begining and end screen are made
               levelNum = 1
-              sceneManager.loadGameScene(levelNum: levelNum)
+              sceneManager.loadGameScene(levelNum: levelNum, ballsUsed: ballsUsed)
             } else {
-              sceneManager.loadGameScene(levelNum: levelNum + 1)
+              sceneManager.loadGameScene(levelNum: levelNum + 1, ballsUsed: ballsUsed)
             }
           }
         }
@@ -306,6 +292,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           }
           ballToLaunch.physicsBody?.linearDamping = 0.0
           ballToLaunch.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
+          ballsUsed += 1
+          scoreLabel?.text = "Balls Used: \(ballsUsed)"
           
           touchCount = touchCount + 1
           ballLoaded = false;
@@ -323,7 +311,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
       //let transition = SKTransition.fade(withDuration: 1) // create type of transition (you can check in documentation for more transtions)
       //currScene.scaleMode = SKSceneScaleMode.fill
-      sceneManager.reloadGameScene(levelNum: levelNum)
+      sceneManager.reloadGameScene(levelNum: levelNum, ballsUsed: ballsUsed)
     }
   
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
