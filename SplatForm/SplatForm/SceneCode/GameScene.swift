@@ -134,16 +134,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
               blueLaunchBall = child
             }
           }
-            if child.name == "platform" {
-                if let child = child as? SKSpriteNode {
-                    child.color = white
-                    child.physicsBody?.categoryBitMask = PhysicsCategory.Platform
-                    child.physicsBody?.contactTestBitMask = PhysicsCategory.Ball
-                    child.physicsBody?.collisionBitMask = PhysicsCategory.Ball
+          if child.name == "platform"{
+              if let child = child as? SKSpriteNode {
+                  child.color = white
+                  child.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+                  child.physicsBody?.contactTestBitMask = PhysicsCategory.Ball
+                  child.physicsBody?.collisionBitMask = PhysicsCategory.Ball
                   
-                    platforms.append(child)
-                }
+                  platforms.append(child)
+              }
+          }
+          if child.name == "movingPlatform"{
+            if let child = child as? SKSpriteNode {
+              child.color = white
+              child.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+              child.physicsBody?.contactTestBitMask = PhysicsCategory.Ball
+              child.physicsBody?.collisionBitMask = PhysicsCategory.Ball
+              
+              let moveDownAction = SKAction.move(to: CGPoint(x: -150, y: -250), duration: 2)
+              let moveUpAction = SKAction.move(to: CGPoint(x: -150, y: 450), duration: 2)
+              
+              child.run(SKAction.repeatForever(SKAction.sequence([moveDownAction, moveUpAction])))
+              
+              platforms.append(child)
             }
+          }
       }
     }
     
@@ -213,9 +228,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           correctPlatforms += 1
           print("\(correctPlatforms)")
           if(correctPlatforms == self.platforms.count){
-            if(levelNum > numberOfLevels){//Currently Hardcoded for testing purposes will fully transition when begining and end screen are made
-              levelNum = 1
-              sceneManager.loadGameScene(levelNum: levelNum, ballsUsed: ballsUsed)
+            if(levelNum >= numberOfLevels){
+              sceneManager.loadEndScene(ballsUsed: ballsUsed)
             } else {
               sceneManager.loadGameScene(levelNum: levelNum + 1, ballsUsed: ballsUsed)
             }

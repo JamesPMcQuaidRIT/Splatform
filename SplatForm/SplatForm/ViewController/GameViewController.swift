@@ -61,7 +61,14 @@ class GameViewController: UIViewController, SceneManager {
         
         skView.presentScene(gameScene!, transition: reveal)
     }
-
+    
+    func loadEndScene(ballsUsed: Int) {
+        let scene = EndScene.loadLevel(ballsUsed: ballsUsed, size: screenSize, scaleMode: scaleMode, sceneManager: self)
+            
+        let reveal = SKTransition.fade(withDuration: 1)
+            
+        skView.presentScene(scene!, transition: reveal)
+    }
     override var shouldAutorotate: Bool {
         return true
     }

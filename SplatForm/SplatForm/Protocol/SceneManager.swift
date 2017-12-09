@@ -12,4 +12,5 @@ protocol SceneManager{
     func loadHomeScene()
     func loadGameScene(levelNum: Int, ballsUsed: Int)
     func reloadGameScene(levelNum: Int, ballsUsed: Int)
+    func loadEndScene(ballsUsed: Int)
 }
