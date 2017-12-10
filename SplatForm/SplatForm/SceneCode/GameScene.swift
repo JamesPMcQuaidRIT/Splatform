@@ -55,6 +55,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   var scoreLabel:SKLabelNode?
   var colorToWin:SKColor!
   var correctPlatforms = 0
+  var cannonBase: SKSpriteNode!
+  var loadedBall: SKSpriteNode!
+  
+  var cannonForce:CGFloat = 1250
   
   class func loadLevel(_ levelNum: Int, ballsUsed: Int, size: CGSize, scaleMode: SKSceneScaleMode, sceneManager:SceneManager) -> GameScene?{
     let scene = GameScene(fileNamed: "level\(levelNum)")!
@@ -83,6 +87,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       }
       
         for child in self.children {
+          if child.name == "cannonBase"{
+            cannonBase = child as? SKSpriteNode
+          }
           if child.name == "score"{
             scoreLabel = child as? SKLabelNode
             scoreLabel?.text = "Balls Used: \(ballsUsed)"
@@ -297,12 +304,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           var launchX:CGFloat = 0
           var launchY:CGFloat = 0
           if(cannonAngle != 0){
-            launchX =  1000 * cos(cannonAngle) * -1
-            launchY =  1000 * sin(cannonAngle) * -1
+            launchX =  cannonForce * cos(cannonAngle) * -1
+            launchY =  cannonForce * sin(cannonAngle) * -1
             
           }else{
-            launchX =  1000 * cos(cannonAngle)
-            launchY = 1000 * sin(cannonAngle) * -1
+            launchX =  cannonForce * cos(cannonAngle)
+            launchY = cannonForce * sin(cannonAngle) * -1
           }
           ballToLaunch.physicsBody?.linearDamping = 0.0
           ballToLaunch.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
@@ -311,6 +318,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           
           touchCount = touchCount + 1
           ballLoaded = false;
+          loadedBall.removeFromParent()
         }
 
      //self.addChild(newBall)
@@ -340,10 +348,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if(targetNode.name == "redInv"){
           print("red clicked")
+          loadedBall = self.childNode(withName: "redInv")?.copy() as! SKSpriteNode
+          self.addChild(loadedBall)
           readyRed()
         }
       if(targetNode.name == "blueInv"){
         print("blue clicked")
+        loadedBall = self.childNode(withName: "blueInv")?.copy() as! SKSpriteNode
+        self.addChild(loadedBall)
         readyBlue()
       }
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
@@ -352,12 +364,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     ballToLaunch = blueLaunchBall
     ballPrimed = true;
     print(ballToLaunch)
+ 
+    loadedBall.position = CGPoint(x: -794, y: -670)
+    print(loadedBall)
+    //ballToLaunch.position = cannonBase.position
   }
   
   func readyRed(){
     ballToLaunch = redLaunchBall
     ballPrimed = true;
     print(ballToLaunch)
+    loadedBall.position = CGPoint(x: -794, y: -670)
+
   }
   func readyYellow(){}
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
