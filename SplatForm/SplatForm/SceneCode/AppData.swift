@@ -11,7 +11,7 @@ import Foundation
 class AppData{
     
     static let sharedData = AppData()
-    var lowestBallsUsed:Int = 1000{
+    var lowestBallsUsed:Int = 0{
         didSet{
             let defaults = UserDefaults.standard
             defaults.set(lowestBallsUsed, forKey: ballKey)

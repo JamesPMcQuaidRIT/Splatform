@@ -190,32 +190,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func ballCollision(ball: SKSpriteNode, platform: SKSpriteNode) {
-        
+      
         //if blueball
         if(ball.color == blue){
             if(platform.color == white){
-                platform.color = blue
+              platform.color = blue
             } else if (platform.color == red){
-                platform.color = purple
+              platform.color = purple
             } else if (platform.color == yellow){
-                platform.color = green
+              platform.color = green
             } else if (platform.color == orange){
-                platform.color = black
+              platform.color = black
             }
       }
         
-        //if redball
-        if(ball.color == red){
-            if(platform.color == white){
-                platform.color = red
-            } else if (platform.color == blue){
-                platform.color = purple
-            } else if (platform.color == yellow){
-                platform.color = orange
-            } else if (platform.color == green){
-                platform.color = black
-            }
-        }
+      //if redball
+      if(ball.color == red){
+          if(platform.color == white){
+              platform.color = red
+          } else if (platform.color == blue){
+              platform.color = purple
+          } else if (platform.color == yellow){
+              platform.color = orange
+          } else if (platform.color == green){
+              platform.color = black
+          }
+      }
             
         //if yellowball
         if(ball.color == yellow){
@@ -229,6 +229,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 platform.color = black
             }
         }
+      
+      displayEmitter(platform: platform)
+      
       
       for platform in self.platforms{
         if(platform.color == colorToWin){
@@ -245,6 +248,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       }
       correctPlatforms = 0;
     }
+
+  
+  func displayEmitter(platform: SKSpriteNode){
+    var splatEmitter:SKEmitterNode?
+    
+    if(platform.color == self.blue){
+      splatEmitter = SKEmitterNode(fileNamed: "BlueSplat")!
+      splatEmitter!.position = platform.position
+      splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+    }
+    if(platform.color == self.red){
+      splatEmitter = SKEmitterNode(fileNamed: "RedSplat")!
+      splatEmitter!.position = platform.position
+      splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+    }
+    if(platform.color == self.yellow){
+      splatEmitter = SKEmitterNode(fileNamed: "YellowSplat")!
+      splatEmitter!.position = platform.position
+      splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+    }
+    if(platform.color == self.purple){
+      splatEmitter = SKEmitterNode(fileNamed: "PurpleSplat")!
+      splatEmitter!.position = platform.position
+      splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+    }
+    if(platform.color == self.green){
+      splatEmitter = SKEmitterNode(fileNamed: "GreenSplat")!
+      splatEmitter!.position = platform.position
+      splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+    }
+    if(platform.color == self.orange){
+      splatEmitter = SKEmitterNode(fileNamed: "OrangeSplat")!
+      splatEmitter!.position = platform.position
+      splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+    }
+    if(platform.color == self.black){
+      splatEmitter = SKEmitterNode(fileNamed: "BlackSplat")!
+      splatEmitter!.position = platform.position
+      splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+    }
+    
+    self.addChild(splatEmitter!)
+    let lifeSpan = SKAction.scale(by: 2.0, duration: 1)
+    let die = SKAction.removeFromParent()
+    
+    splatEmitter?.run(SKAction.sequence([lifeSpan, die]))
+  
+  }
     
     
     func touchDown(atPoint pos : CGPoint) {

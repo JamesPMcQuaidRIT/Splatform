@@ -19,6 +19,13 @@
 		3F8C07341FD5F5A300ED5934 /* level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F8C07331FD5F5A300ED5934 /* level4.sks */; };
 		3F8C07361FD5FB0B00ED5934 /* level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F8C07351FD5FB0B00ED5934 /* level5.sks */; };
 		3FAF758B1FBD319D00E4681B /* launchBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAF758A1FBD319D00E4681B /* launchBall.swift */; };
+		3FC0EACF1FDDE52600174B10 /* BlueSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EACE1FDDE52600174B10 /* BlueSplat.sks */; };
+		3FC0EAD51FDDEDAF00174B10 /* RedSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAD31FDDEDAF00174B10 /* RedSplat.sks */; };
+		3FC0EAD81FDDF24C00174B10 /* YellowSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAD71FDDF24C00174B10 /* YellowSplat.sks */; };
+		3FC0EADA1FDDF25000174B10 /* PurpleSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAD91FDDF25000174B10 /* PurpleSplat.sks */; };
+		3FC0EADC1FDDF25300174B10 /* GreenSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EADB1FDDF25300174B10 /* GreenSplat.sks */; };
+		3FC0EADE1FDDF25600174B10 /* OrangeSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EADD1FDDF25600174B10 /* OrangeSplat.sks */; };
+		3FC0EAE01FDDF25A00174B10 /* BlackSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EADF1FDDF25A00174B10 /* BlackSplat.sks */; };
 		3FD113B71FDB0926002D0113 /* HomeBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3FD113B61FDB0926002D0113 /* HomeBackground.jpg */; };
 		3FD113B91FDB095C002D0113 /* homeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FD113B81FDB095C002D0113 /* homeScene.sks */; };
 		3FD113BB1FDB0FCB002D0113 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD113BA1FDB0FCB002D0113 /* HomeScene.swift */; };
@@ -48,6 +55,13 @@
 		3F8C07331FD5F5A300ED5934 /* level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level4.sks; sourceTree = "<group>"; };
 		3F8C07351FD5FB0B00ED5934 /* level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = level5.sks; sourceTree = "<group>"; };
 		3FAF758A1FBD319D00E4681B /* launchBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = launchBall.swift; sourceTree = "<group>"; };
+		3FC0EACE1FDDE52600174B10 /* BlueSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BlueSplat.sks; sourceTree = "<group>"; };
+		3FC0EAD31FDDEDAF00174B10 /* RedSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RedSplat.sks; sourceTree = "<group>"; };
+		3FC0EAD71FDDF24C00174B10 /* YellowSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = YellowSplat.sks; sourceTree = "<group>"; };
+		3FC0EAD91FDDF25000174B10 /* PurpleSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PurpleSplat.sks; sourceTree = "<group>"; };
+		3FC0EADB1FDDF25300174B10 /* GreenSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GreenSplat.sks; sourceTree = "<group>"; };
+		3FC0EADD1FDDF25600174B10 /* OrangeSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OrangeSplat.sks; sourceTree = "<group>"; };
+		3FC0EADF1FDDF25A00174B10 /* BlackSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BlackSplat.sks; sourceTree = "<group>"; };
 		3FD113B61FDB0926002D0113 /* HomeBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = HomeBackground.jpg; sourceTree = "<group>"; };
 		3FD113B81FDB095C002D0113 /* homeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = homeScene.sks; sourceTree = "<group>"; };
 		3FD113BA1FDB0FCB002D0113 /* HomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
@@ -115,6 +129,7 @@
 		3F6E484E1FBCD306004016F8 /* ArtAssets */ = {
 			isa = PBXGroup;
 			children = (
+				3FC0EAD01FDDECB000174B10 /* Emitters */,
 				3F3B07411FDC7CFB007865F4 /* EndBackground.jpg */,
 				3FD113B61FDB0926002D0113 /* HomeBackground.jpg */,
 				3F6E48551FBCD385004016F8 /* BlueBall.png */,
@@ -122,6 +137,20 @@
 				3F6E48501FBCD325004016F8 /* YellowBall.png */,
 			);
 			path = ArtAssets;
+			sourceTree = "<group>";
+		};
+		3FC0EAD01FDDECB000174B10 /* Emitters */ = {
+			isa = PBXGroup;
+			children = (
+				3FC0EADF1FDDF25A00174B10 /* BlackSplat.sks */,
+				3FC0EADD1FDDF25600174B10 /* OrangeSplat.sks */,
+				3FC0EADB1FDDF25300174B10 /* GreenSplat.sks */,
+				3FC0EAD91FDDF25000174B10 /* PurpleSplat.sks */,
+				3FC0EAD71FDDF24C00174B10 /* YellowSplat.sks */,
+				3FC0EAD31FDDEDAF00174B10 /* RedSplat.sks */,
+				3FC0EACE1FDDE52600174B10 /* BlueSplat.sks */,
+			);
+			path = Emitters;
 			sourceTree = "<group>";
 		};
 		3FDD98291FD33D5F0047704A /* Protocol */ = {
@@ -226,15 +255,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FC0EADC1FDDF25300174B10 /* GreenSplat.sks in Resources */,
 				3FFDCA3A1FBB42C1008C40AE /* Main.storyboard in Resources */,
 				3FFDCA311FBB42C1008C40AE /* GameScene.sks in Resources */,
 				3F8C07341FD5F5A300ED5934 /* level4.sks in Resources */,
+				3FC0EACF1FDDE52600174B10 /* BlueSplat.sks in Resources */,
 				3FD113B91FDB095C002D0113 /* homeScene.sks in Resources */,
+				3FC0EAE01FDDF25A00174B10 /* BlackSplat.sks in Resources */,
 				3F6E48561FBCD385004016F8 /* BlueBall.png in Resources */,
+				3FC0EAD51FDDEDAF00174B10 /* RedSplat.sks in Resources */,
 				3FFDCA3C1FBB42C1008C40AE /* Assets.xcassets in Resources */,
+				3FC0EAD81FDDF24C00174B10 /* YellowSplat.sks in Resources */,
 				3F6E48531FBCD326004016F8 /* YellowBall.png in Resources */,
 				3F6E48541FBCD326004016F8 /* RedBall.png in Resources */,
 				3FFDCA3F1FBB42C1008C40AE /* LaunchScreen.storyboard in Resources */,
+				3FC0EADA1FDDF25000174B10 /* PurpleSplat.sks in Resources */,
 				3FFDCA331FBB42C1008C40AE /* Actions.sks in Resources */,
 				3FD113B71FDB0926002D0113 /* HomeBackground.jpg in Resources */,
 				3F3B07401FDC7C65007865F4 /* endScene.sks in Resources */,
@@ -243,6 +278,7 @@
 				3F8C072C1FD5EC0A00ED5934 /* level1.sks in Resources */,
 				3FDEEE2E1FBD2000005E70ED /* testScene.sks in Resources */,
 				3F8C07361FD5FB0B00ED5934 /* level5.sks in Resources */,
+				3FC0EADE1FDDF25600174B10 /* OrangeSplat.sks in Resources */,
 				3FDD98281FD33AB90047704A /* level2.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,10 +435,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 25YN25P748;
+				DEVELOPMENT_TEAM = 66D9TZSAXL;
 				INFOPLIST_FILE = SplatForm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.3SplatForm;
+				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.1SplatForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -414,10 +450,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 25YN25P748;
+				DEVELOPMENT_TEAM = 66D9TZSAXL;
 				INFOPLIST_FILE = SplatForm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.3SplatForm;
+				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.1SplatForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

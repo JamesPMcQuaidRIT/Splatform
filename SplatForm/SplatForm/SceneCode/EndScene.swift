@@ -26,7 +26,7 @@ class EndScene: SKScene{
     }
     
     override func didMove(to view: SKView) {
-        if(ballsUsed < AppData.sharedData.lowestBallsUsed){
+        if(ballsUsed < AppData.sharedData.lowestBallsUsed || AppData.sharedData.lowestBallsUsed == 0){
             AppData.sharedData.lowestBallsUsed = ballsUsed
         }
         
