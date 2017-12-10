@@ -21,11 +21,12 @@
 		3FAF758B1FBD319D00E4681B /* launchBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAF758A1FBD319D00E4681B /* launchBall.swift */; };
 		3FC0EACF1FDDE52600174B10 /* BlueSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EACE1FDDE52600174B10 /* BlueSplat.sks */; };
 		3FC0EAD51FDDEDAF00174B10 /* RedSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAD31FDDEDAF00174B10 /* RedSplat.sks */; };
-		3FC0EAD81FDDF24C00174B10 /* YellowSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAD71FDDF24C00174B10 /* YellowSplat.sks */; };
-		3FC0EADA1FDDF25000174B10 /* PurpleSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAD91FDDF25000174B10 /* PurpleSplat.sks */; };
-		3FC0EADC1FDDF25300174B10 /* GreenSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EADB1FDDF25300174B10 /* GreenSplat.sks */; };
-		3FC0EADE1FDDF25600174B10 /* OrangeSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EADD1FDDF25600174B10 /* OrangeSplat.sks */; };
-		3FC0EAE01FDDF25A00174B10 /* BlackSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EADF1FDDF25A00174B10 /* BlackSplat.sks */; };
+		3FC0EAE31FDDF52E00174B10 /* YellowSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAE11FDDF52E00174B10 /* YellowSplat.sks */; };
+		3FC0EAE41FDDF52E00174B10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAE21FDDF52E00174B10 /* Assets.xcassets */; };
+		3FC0EAE61FDDF58000174B10 /* GreenSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAE51FDDF58000174B10 /* GreenSplat.sks */; };
+		3FC0EAEB1FDDF5DB00174B10 /* PurpleSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAE91FDDF5DB00174B10 /* PurpleSplat.sks */; };
+		3FC0EAEE1FDDF60800174B10 /* OrangeSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAED1FDDF60800174B10 /* OrangeSplat.sks */; };
+		3FC0EAF01FDDF63500174B10 /* BlackSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAEF1FDDF63500174B10 /* BlackSplat.sks */; };
 		3FD113B71FDB0926002D0113 /* HomeBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3FD113B61FDB0926002D0113 /* HomeBackground.jpg */; };
 		3FD113B91FDB095C002D0113 /* homeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FD113B81FDB095C002D0113 /* homeScene.sks */; };
 		3FD113BB1FDB0FCB002D0113 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD113BA1FDB0FCB002D0113 /* HomeScene.swift */; };
@@ -57,11 +58,12 @@
 		3FAF758A1FBD319D00E4681B /* launchBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = launchBall.swift; sourceTree = "<group>"; };
 		3FC0EACE1FDDE52600174B10 /* BlueSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BlueSplat.sks; sourceTree = "<group>"; };
 		3FC0EAD31FDDEDAF00174B10 /* RedSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RedSplat.sks; sourceTree = "<group>"; };
-		3FC0EAD71FDDF24C00174B10 /* YellowSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = YellowSplat.sks; sourceTree = "<group>"; };
-		3FC0EAD91FDDF25000174B10 /* PurpleSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PurpleSplat.sks; sourceTree = "<group>"; };
-		3FC0EADB1FDDF25300174B10 /* GreenSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GreenSplat.sks; sourceTree = "<group>"; };
-		3FC0EADD1FDDF25600174B10 /* OrangeSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OrangeSplat.sks; sourceTree = "<group>"; };
-		3FC0EADF1FDDF25A00174B10 /* BlackSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BlackSplat.sks; sourceTree = "<group>"; };
+		3FC0EAE11FDDF52E00174B10 /* YellowSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = YellowSplat.sks; sourceTree = "<group>"; };
+		3FC0EAE21FDDF52E00174B10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3FC0EAE51FDDF58000174B10 /* GreenSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GreenSplat.sks; sourceTree = "<group>"; };
+		3FC0EAE91FDDF5DB00174B10 /* PurpleSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PurpleSplat.sks; sourceTree = "<group>"; };
+		3FC0EAED1FDDF60800174B10 /* OrangeSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OrangeSplat.sks; sourceTree = "<group>"; };
+		3FC0EAEF1FDDF63500174B10 /* BlackSplat.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BlackSplat.sks; sourceTree = "<group>"; };
 		3FD113B61FDB0926002D0113 /* HomeBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = HomeBackground.jpg; sourceTree = "<group>"; };
 		3FD113B81FDB095C002D0113 /* homeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = homeScene.sks; sourceTree = "<group>"; };
 		3FD113BA1FDB0FCB002D0113 /* HomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
@@ -142,11 +144,12 @@
 		3FC0EAD01FDDECB000174B10 /* Emitters */ = {
 			isa = PBXGroup;
 			children = (
-				3FC0EADF1FDDF25A00174B10 /* BlackSplat.sks */,
-				3FC0EADD1FDDF25600174B10 /* OrangeSplat.sks */,
-				3FC0EADB1FDDF25300174B10 /* GreenSplat.sks */,
-				3FC0EAD91FDDF25000174B10 /* PurpleSplat.sks */,
-				3FC0EAD71FDDF24C00174B10 /* YellowSplat.sks */,
+				3FC0EAE11FDDF52E00174B10 /* YellowSplat.sks */,
+				3FC0EAE91FDDF5DB00174B10 /* PurpleSplat.sks */,
+				3FC0EAED1FDDF60800174B10 /* OrangeSplat.sks */,
+				3FC0EAEF1FDDF63500174B10 /* BlackSplat.sks */,
+				3FC0EAE51FDDF58000174B10 /* GreenSplat.sks */,
+				3FC0EAE21FDDF52E00174B10 /* Assets.xcassets */,
 				3FC0EAD31FDDEDAF00174B10 /* RedSplat.sks */,
 				3FC0EACE1FDDE52600174B10 /* BlueSplat.sks */,
 			);
@@ -255,21 +258,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FC0EADC1FDDF25300174B10 /* GreenSplat.sks in Resources */,
+				3FC0EAE61FDDF58000174B10 /* GreenSplat.sks in Resources */,
 				3FFDCA3A1FBB42C1008C40AE /* Main.storyboard in Resources */,
+				3FC0EAF01FDDF63500174B10 /* BlackSplat.sks in Resources */,
+				3FC0EAEB1FDDF5DB00174B10 /* PurpleSplat.sks in Resources */,
 				3FFDCA311FBB42C1008C40AE /* GameScene.sks in Resources */,
+				3FC0EAE41FDDF52E00174B10 /* Assets.xcassets in Resources */,
 				3F8C07341FD5F5A300ED5934 /* level4.sks in Resources */,
 				3FC0EACF1FDDE52600174B10 /* BlueSplat.sks in Resources */,
 				3FD113B91FDB095C002D0113 /* homeScene.sks in Resources */,
-				3FC0EAE01FDDF25A00174B10 /* BlackSplat.sks in Resources */,
 				3F6E48561FBCD385004016F8 /* BlueBall.png in Resources */,
 				3FC0EAD51FDDEDAF00174B10 /* RedSplat.sks in Resources */,
 				3FFDCA3C1FBB42C1008C40AE /* Assets.xcassets in Resources */,
-				3FC0EAD81FDDF24C00174B10 /* YellowSplat.sks in Resources */,
+				3FC0EAE31FDDF52E00174B10 /* YellowSplat.sks in Resources */,
 				3F6E48531FBCD326004016F8 /* YellowBall.png in Resources */,
 				3F6E48541FBCD326004016F8 /* RedBall.png in Resources */,
 				3FFDCA3F1FBB42C1008C40AE /* LaunchScreen.storyboard in Resources */,
-				3FC0EADA1FDDF25000174B10 /* PurpleSplat.sks in Resources */,
 				3FFDCA331FBB42C1008C40AE /* Actions.sks in Resources */,
 				3FD113B71FDB0926002D0113 /* HomeBackground.jpg in Resources */,
 				3F3B07401FDC7C65007865F4 /* endScene.sks in Resources */,
@@ -278,7 +282,7 @@
 				3F8C072C1FD5EC0A00ED5934 /* level1.sks in Resources */,
 				3FDEEE2E1FBD2000005E70ED /* testScene.sks in Resources */,
 				3F8C07361FD5FB0B00ED5934 /* level5.sks in Resources */,
-				3FC0EADE1FDDF25600174B10 /* OrangeSplat.sks in Resources */,
+				3FC0EAEE1FDDF60800174B10 /* OrangeSplat.sks in Resources */,
 				3FDD98281FD33AB90047704A /* level2.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
