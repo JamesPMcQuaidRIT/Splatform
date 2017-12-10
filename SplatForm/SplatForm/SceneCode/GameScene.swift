@@ -18,6 +18,9 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+  var cannonNode: Cannon = Cannon.init()
+
+
   var cannon : SKSpriteNode!
   private var label : SKLabelNode?
   private var spinnyNode : SKShapeNode?
@@ -89,7 +92,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for child in self.children {
           if child.name == "cannonBase"{
             cannonBase = child as? SKSpriteNode
+            cannonNode.setBase(baseIn: cannonBase)
           }
+          if child.name == "cannonBarrel"{
+            let cannonBarrel = child as? SKSpriteNode
+            cannonNode.setBarrel(barrelIn: cannonBarrel!)
+          }
+
           if child.name == "score"{
             scoreLabel = child as? SKLabelNode
             scoreLabel?.text = "Balls Used: \(ballsUsed)"
@@ -309,23 +318,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       //print(cannon)
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-      //  if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-      //      n.position = pos
-      //      n.strokeColor = SKColor.blue
-      //      self.addChild(n)
-      //  }
-      let touch = pos
-      
-      if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
-        print(cannon)
-        let dX = cannon.position.x - touch.x
-        let dY = cannon.position.y - touch.y
-        let angle = atan2(dY, dX)
-        cannon.zRotation = angle + (.pi / 180)
-        cannonAngle = angle + (.pi / 180);
-      }
-    }
+  func touchMoved(toPoint pos : CGPoint) {
+    //  if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+    //      n.position = pos
+    //      n.strokeColor = SKColor.blue
+    //      self.addChild(n)
+    //  }
+    let touch = pos
+    /*
+     if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
+     print(cannon)
+     let dX = cannon.position.x - touch.x
+     let dY = cannon.position.y - touch.y
+     let angle = atan2(dY, dX)
+     cannon.zRotation = angle + (.pi / 180)
+     cannonAngle = angle + (.pi / 180);
+     }*/
+    cannonNode.calcAngle(touchX: touch.x, touchY: touch.y)
+    print("fingers crossed")
+  }
+
     
     func touchUp(atPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
@@ -336,44 +348,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       let touch = pos
      // var newBall = childNode(withName: "blueball") as! SKSpriteNode
  
-      if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
-        print(cannon)
-        if(inventoryBalls.count > 0){
-          let removeBall = inventoryBalls[0]
-          inventoryBalls.remove(at: 0)
-          removeBall.removeFromParent()
-        }
-        if(!ballLoaded){
-          //error - ball not loaded
-          if(ballPrimed){
-            ballLoaded = true
-            ballPrimed = false
+      if cannonNode.barrel != nil {
+        if(!cannonNode.loaded){
+          if(cannonNode.primed){
+            cannonNode.loadCannon()
+            cannonNode.unprimeCannon()
           }
         }
         else{
-          ballToLaunch.position = cannon.position
-          var launchX:CGFloat = 0
-          var launchY:CGFloat = 0
-          if(cannonAngle != 0){
-            launchX =  cannonForce * cos(cannonAngle) * -1
-            launchY =  cannonForce * sin(cannonAngle) * -1
-            
-          }else{
-            launchX =  cannonForce * cos(cannonAngle)
-            launchY = cannonForce * sin(cannonAngle) * -1
-          }
+          ballToLaunch.position = (cannonNode.base?.position)!
+          cannonNode.fireCannon()
           ballToLaunch.physicsBody?.linearDamping = 0.0
-          ballToLaunch.physicsBody?.velocity = CGVector(dx: launchX, dy: launchY)
+          ballToLaunch.physicsBody?.velocity = CGVector(dx: cannonNode.launchX, dy: cannonNode.launchY)
           ballsUsed += 1
           scoreLabel?.text = "Balls Used: \(ballsUsed)"
           
           touchCount = touchCount + 1
-          ballLoaded = false;
+          cannonNode.unloadCannon()
+          //ballLoaded = false;
           loadedBall.removeFromParent()
         }
+      }
 
-     //self.addChild(newBall)
-        }
     }
   
   func reset(){
@@ -413,9 +409,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
   func readyBlue(){
     ballToLaunch = blueLaunchBall
-    ballPrimed = true;
+    //ballPrimed = true;
+    cannonNode.primeCannon()
     print(ballToLaunch)
- 
+    
     loadedBall.position = CGPoint(x: -794, y: -670)
     print(loadedBall)
     //ballToLaunch.position = cannonBase.position
@@ -423,11 +420,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   
   func readyRed(){
     ballToLaunch = redLaunchBall
-    ballPrimed = true;
+    //ballPrimed = true;
+    cannonNode.primeCannon()
     print(ballToLaunch)
     loadedBall.position = CGPoint(x: -794, y: -670)
-
+    
   }
+
   func readyYellow(){}
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
