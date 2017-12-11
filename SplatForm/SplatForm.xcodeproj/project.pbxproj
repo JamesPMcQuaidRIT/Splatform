@@ -20,7 +20,7 @@
 		3F8C07341FD5F5A300ED5934 /* level6.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F8C07331FD5F5A300ED5934 /* level6.sks */; };
 		3F8C07361FD5FB0B00ED5934 /* level7.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3F8C07351FD5FB0B00ED5934 /* level7.sks */; };
 		3FAF758B1FBD319D00E4681B /* launchBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAF758A1FBD319D00E4681B /* launchBall.swift */; };
-		3FB1D3441FDF1A3100A64659 /* ITCKRIST.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EB291FDE136800174B10 /* ITCKRIST.ttf */; };
+		3FB1D3461FDF347000A64659 /* ITCKRIST.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EB291FDE136800174B10 /* ITCKRIST.ttf */; };
 		3FC0EACF1FDDE52600174B10 /* BlueSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EACE1FDDE52600174B10 /* BlueSplat.sks */; };
 		3FC0EAD51FDDEDAF00174B10 /* RedSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAD31FDDEDAF00174B10 /* RedSplat.sks */; };
 		3FC0EAE31FDDF52E00174B10 /* YellowSplat.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EAE11FDDF52E00174B10 /* YellowSplat.sks */; };
@@ -340,7 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FB1D3441FDF1A3100A64659 /* ITCKRIST.ttf in Resources */,
+				3FB1D3461FDF347000A64659 /* ITCKRIST.ttf in Resources */,
 				3FC0EAF81FDDFDF900174B10 /* level2.sks in Resources */,
 				3FC0EAE61FDDF58000174B10 /* GreenSplat.sks in Resources */,
 				3FFDCA3A1FBB42C1008C40AE /* Main.storyboard in Resources */,
@@ -543,10 +543,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 25YN25P748;
+				DEVELOPMENT_TEAM = 66D9TZSAXL;
 				INFOPLIST_FILE = SplatForm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.3SplatForm;
+				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.1SplatForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -558,10 +558,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 25YN25P748;
+				DEVELOPMENT_TEAM = 66D9TZSAXL;
 				INFOPLIST_FILE = SplatForm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.3SplatForm;
+				PRODUCT_BUNDLE_IDENTIFIER = splatGame1.1SplatForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
