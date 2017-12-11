@@ -26,7 +26,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   private var spinnyNode : SKShapeNode?
   
   var levelNum:Int = 1
-  var numberOfLevels = 5
+  var numberOfLevels = 8
   var sceneManager:SceneManager = GameViewController()
     
   var blueball: SKSpriteNode!
@@ -77,16 +77,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
       physicsWorld.contactDelegate = self
       
+      run(SKAction.playSoundFileNamed("changeLevel.mp3", waitForCompletion: false))
+      
       if(levelNum == 1){
         colorToWin = blue
       } else if(levelNum == 2) {
-        colorToWin = purple
+        colorToWin = yellow
       } else if(levelNum == 3){
-        colorToWin = purple
-      } else if(levelNum == 4){
         colorToWin = red
-      } else if(levelNum == 5){
+      } else if(levelNum == 4){
         colorToWin = purple
+      } else if(levelNum == 5){
+        colorToWin = orange
+      } else if(levelNum == 6){
+        colorToWin = red
+      } else if(levelNum == 7){
+        colorToWin = purple
+      } else if(levelNum == 8){
+        colorToWin = green
       }
       
         for child in self.children {
@@ -167,8 +175,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
               child.physicsBody?.contactTestBitMask = PhysicsCategory.Ball
               child.physicsBody?.collisionBitMask = PhysicsCategory.Ball
               
-              let moveDownAction = SKAction.move(to: CGPoint(x: -150, y: -250), duration: 2)
-              let moveUpAction = SKAction.move(to: CGPoint(x: -150, y: 450), duration: 2)
+              let moveDownAction = SKAction.move(to: CGPoint(x: child.position.x, y: child.position.y - 500), duration: 2)
+              let moveUpAction = SKAction.move(to: CGPoint(x: child.position.x, y: child.position.y + 500), duration: 2)
               
               child.run(SKAction.repeatForever(SKAction.sequence([moveDownAction, moveUpAction])))
               
@@ -260,37 +268,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
   
   func displayEmitter(platform: SKSpriteNode){
+    
     var splatEmitter:SKEmitterNode?
     
     if(platform.color == self.blue){
       splatEmitter = SKEmitterNode(fileNamed: "BlueSplat")!
       splatEmitter!.position = platform.position
       splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+      run(SKAction.playSoundFileNamed("splating.mp3", waitForCompletion: false))
     }
     if(platform.color == self.red){
       splatEmitter = SKEmitterNode(fileNamed: "RedSplat")!
       splatEmitter!.position = platform.position
       splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+      run(SKAction.playSoundFileNamed("splating.mp3", waitForCompletion: false))
     }
     if(platform.color == self.yellow){
       splatEmitter = SKEmitterNode(fileNamed: "YellowSplat")!
       splatEmitter!.position = platform.position
       splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+      run(SKAction.playSoundFileNamed("splating.mp3", waitForCompletion: false))
     }
     if(platform.color == self.purple){
       splatEmitter = SKEmitterNode(fileNamed: "PurpleSplat")!
       splatEmitter!.position = platform.position
       splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+      run(SKAction.playSoundFileNamed("splating.mp3", waitForCompletion: false))
     }
     if(platform.color == self.green){
       splatEmitter = SKEmitterNode(fileNamed: "GreenSplat")!
       splatEmitter!.position = platform.position
       splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+      run(SKAction.playSoundFileNamed("splating.mp3", waitForCompletion: false))
     }
     if(platform.color == self.orange){
       splatEmitter = SKEmitterNode(fileNamed: "OrangeSplat")!
       splatEmitter!.position = platform.position
       splatEmitter!.zRotation = platform.zRotation + CGFloat(Double.pi)/2
+      run(SKAction.playSoundFileNamed("splating.mp3", waitForCompletion: false))
     }
     if(platform.color == self.black){
       splatEmitter = SKEmitterNode(fileNamed: "BlackSplat")!
@@ -358,6 +373,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else{
           ballToLaunch.position = (cannonNode.base?.position)!
           cannonNode.fireCannon()
+          run(SKAction.playSoundFileNamed("cannonFiring.mp3", waitForCompletion: false))
           ballToLaunch.physicsBody?.linearDamping = 0.0
           ballToLaunch.physicsBody?.velocity = CGVector(dx: cannonNode.launchX, dy: cannonNode.launchY)
           ballsUsed += 1
@@ -405,6 +421,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(loadedBall)
         readyBlue()
       }
+      if(targetNode.name == "yellowInv"){
+        print("yellow clicked")
+        loadedBall = self.childNode(withName: "yellowInv")?.copy() as! SKSpriteNode
+        self.addChild(loadedBall)
+        readyYellow()
+      }
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
   func readyBlue(){
@@ -427,7 +449,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
   }
 
-  func readyYellow(){}
+  func readyYellow(){
+    ballToLaunch = yellowLaunchBall
+    //ballPrimed = true;
+    cannonNode.primeCannon()
+    print(ballToLaunch)
+    loadedBall.position = CGPoint(x: -794, y: -670)
+  }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
     }
