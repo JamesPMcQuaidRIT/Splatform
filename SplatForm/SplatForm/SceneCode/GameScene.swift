@@ -1,8 +1,9 @@
 //
 //  GameScene.swift
 //  SplatForm
+//  Manages core game logic and input management for SplatForm
 //
-//  Created by student on 11/14/17.
+//  Created by James McQuaid and Robert Bailey on 11/14/17.
 //  Copyright © 2017 splat. All rights reserved.
 //
 
@@ -19,12 +20,6 @@ struct PhysicsCategory {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
   
-  var cannonNode: Cannon = Cannon.init()
-  var cannon : SKSpriteNode!
-  
-  private var spinnyNode:SKSpriteNode?
-  private var label:SKLabelNode?
-  
   //MARK: - Level Management -
   var levelNum:Int = 1
   var numberOfLevels = 8
@@ -35,36 +30,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   var redball: SKSpriteNode!
   var yellowball: SKSpriteNode!
   var platforms: [SKSpriteNode] = []
-  var inventoryBalls: [SKSpriteNode] = []
   var cannonAngle:CGFloat = 0
   var touchCount:Int = 0
   var resetButton: SKSpriteNode!
   
   //MARK: - Color Management -
-  var white = SKColor(red: 1, green: 1, blue: 1, alpha: 1)
-  var blue = SKColor(red: 0, green: 0, blue: 1, alpha: 1)
-  var red = SKColor(red: 1, green: 0, blue: 0, alpha: 1)
-  var yellow = SKColor(red: 1, green: 1, blue: 0, alpha: 1)
-  var green = SKColor(red: 0, green: 1, blue: 0, alpha: 1)
-  var purple = SKColor(red: 0.75, green: 0, blue: 0.75, alpha: 1)
-  var orange = SKColor(red: 1, green: 0.5, blue: 0, alpha: 1)
-  var black = SKColor(red: 0, green: 0, blue: 0, alpha: 1)
+  let white = SKColor(red: 1, green: 1, blue: 1, alpha: 1)
+  let blue = SKColor(red: 0, green: 0, blue: 1, alpha: 1)
+  let red = SKColor(red: 1, green: 0, blue: 0, alpha: 1)
+  let yellow = SKColor(red: 1, green: 1, blue: 0, alpha: 1)
+  let green = SKColor(red: 0, green: 1, blue: 0, alpha: 1)
+  let purple = SKColor(red: 0.75, green: 0, blue: 0.75, alpha: 1)
+  let orange = SKColor(red: 1, green: 0.5, blue: 0, alpha: 1)
+  let black = SKColor(red: 0, green: 0, blue: 0, alpha: 1)
   
+  //MARK: - Ball Launching Management -
   var yellowLaunchBall: SKSpriteNode!
   var blueLaunchBall: SKSpriteNode!
   var redLaunchBall: SKSpriteNode!
-  
   var ballToLaunch: SKSpriteNode!
   var ballLoaded:Bool = false
   var ballPrimed:Bool = false
+  
+  //MARK: - Scoring Management -
   var ballsUsed:Int = 0
   var scoreLabel:SKLabelNode?
   var colorToWin:SKColor!
   var correctPlatforms = 0
+  
+  //MARK: - Cannon Management -
+  let cannonNode: Cannon = Cannon.init()
   var cannonBase: SKSpriteNode!
   var loadedBall: SKSpriteNode!
-  
-  var cannonForce:CGFloat = 1250
   
   //MARK: - Class Function to Load Levels -
   class func loadLevel(_ levelNum: Int, ballsUsed: Int, size: CGSize, scaleMode: SKSceneScaleMode, sceneManager:SceneManager) -> GameScene?{
@@ -102,11 +99,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       colorToWin = green
     }
     
+    //Assigns variables to control for each level based off of reading in the scene
     for child in self.children {
       if child.name == "cannonBase"{
         cannonBase = child as? SKSpriteNode
         cannonNode.setBase(baseIn: cannonBase)
       }
+      
       if child.name == "cannonBarrel"{
         let cannonBarrel = child as? SKSpriteNode
         cannonNode.setBarrel(barrelIn: cannonBarrel!)
@@ -117,12 +116,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel?.text = "Balls Used: \(ballsUsed)"
       }
       if child.name == "resetButton"{
-        // child.isUserInteractionEnabled = false
         resetButton = child as? SKSpriteNode
       }
+      
       if child.name == "redball"{
         if let child = child as? SKSpriteNode {
-          
           child.color = red
           child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
           child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
@@ -132,20 +130,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       }
       if child.name == "launchball"{
         if let child = child as? SKSpriteNode{
-          //var blueTexture = SKTexture(image: "BlueBall.png")
-          if(child.color == blue){
-            //   child.color = yellow
-          }
           child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
           child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
           child.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-          inventoryBalls.append(child)
-          
         }
       }
       if child.name == "yellowball" {
         if let child = child as? SKSpriteNode {
-          
           child.color = yellow
           child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
           child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
@@ -155,7 +146,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       }
       if child.name == "blueball" {
         if let child = child as? SKSpriteNode {
-          
           child.color = blue
           child.physicsBody?.categoryBitMask = PhysicsCategory.Ball
           child.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
@@ -169,22 +159,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           child.physicsBody?.categoryBitMask = PhysicsCategory.Platform
           child.physicsBody?.contactTestBitMask = PhysicsCategory.Ball
           child.physicsBody?.collisionBitMask = PhysicsCategory.Ball
-          
           platforms.append(child)
         }
       }
+      
       if child.name == "movingPlatform"{
         if let child = child as? SKSpriteNode {
           child.color = white
           child.physicsBody?.categoryBitMask = PhysicsCategory.Platform
           child.physicsBody?.contactTestBitMask = PhysicsCategory.Ball
           child.physicsBody?.collisionBitMask = PhysicsCategory.Ball
-          
           let moveDownAction = SKAction.move(to: CGPoint(x: child.position.x, y: child.position.y - 500), duration: 2)
           let moveUpAction = SKAction.move(to: CGPoint(x: child.position.x, y: child.position.y + 500), duration: 2)
-          
           child.run(SKAction.repeatForever(SKAction.sequence([moveDownAction, moveUpAction])))
-          
           platforms.append(child)
         }
       }
@@ -212,6 +199,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
   }
   
+  //MARK: - Ball Collision -
   func ballCollision(ball: SKSpriteNode, platform: SKSpriteNode) {
     
     //if blueball
@@ -272,7 +260,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     correctPlatforms = 0;
   }
   
-  
+  //MARK: - Display Emitter -
   func displayEmitter(platform: SKSpriteNode){
     
     var splatEmitter:SKEmitterNode?
@@ -331,124 +319,107 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   func touchDown(atPoint pos : CGPoint) {
   }
   
+  //Processes touch movement to adjust cannon angle. It calls cannonNode.calcAngle to have the cannon point at the player's finger
   func touchMoved(toPoint pos : CGPoint) {
     let touch = pos
-    /*
-     if let cannon = childNode(withName: "cannonBarrel") as? SKSpriteNode{
-     print(cannon)
-     let dX = cannon.position.x - touch.x
-     let dY = cannon.position.y - touch.y
-     let angle = atan2(dY, dX)
-     cannon.zRotation = angle + (.pi / 180)
-     cannonAngle = angle + (.pi / 180);
-     }*/
     cannonNode.calcAngle(touchX: touch.x, touchY: touch.y)
     print("fingers crossed")
   }
   
-  
+  //On release, the ball fires if loaded into the cannon
   func touchUp(atPoint pos : CGPoint) {
-    if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-      n.position = pos
-      n.strokeColor = SKColor.red
-      self.addChild(n)
-    }
-    let touch = pos
-    // var newBall = childNode(withName: "blueball") as! SKSpriteNode
     
+    //If the cannon is loaded properly (to avoid errors on non-level screens
     if cannonNode.barrel != nil {
+      //And if the cannon is not loaded
       if(!cannonNode.loaded){
+        //Prime the cannon, and load it
         if(cannonNode.primed){
           cannonNode.loadCannon()
           cannonNode.unprimeCannon()
         }
       }
+      //If the cannon is loaded
       else{
+        //Move the ball to fire to the cannon's base, and shoot it at the cannon's angle
         ballToLaunch.position = (cannonNode.base?.position)!
         cannonNode.fireCannon()
         run(SKAction.playSoundFileNamed("cannonFiring.mp3", waitForCompletion: false))
+        
         ballToLaunch.physicsBody?.linearDamping = 0.0
         ballToLaunch.physicsBody?.velocity = CGVector(dx: cannonNode.launchX, dy: cannonNode.launchY)
+        //Increase the count
         ballsUsed += 1
         scoreLabel?.text = "Balls Used: \(ballsUsed)"
-        
         touchCount = touchCount + 1
+        //Deactivate the cannon, and reset the loadedball
         cannonNode.unloadCannon()
-        //ballLoaded = false;
         loadedBall.removeFromParent()
       }
     }
     
   }
   
-  func reset(){
-    //print(self.name)
-    //let currScene:SKScene = SKScene(fileNamed: "level\(levelNum)")!
-    //removeAllActions()
-    //removeAllChildren()
-    
-    //let transition = SKTransition.fade(withDuration: 1) // create type of transition (you can check in documentation for more transtions)
-    //currScene.scaleMode = SKSceneScaleMode.fill
-    sceneManager.reloadGameScene(levelNum: levelNum, ballsUsed: ballsUsed)
-  }
-  
+ 
+  //MARK: - Touch Start -
+  //Checks if any specific sprite nodes are touched, and processes them accordingly
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    if let label = self.label {
-      label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-    }
+
     let touch = touches.first as UITouch!
-    let touchLocation = touch?.location(in: self)
     let targetNode = atPoint((touch?.location(in: self))!) as! SKNode
+    //Reset
     if(targetNode == resetButton){
       reset()
     }
+    
+    //Load specific colors
+    //Moves the coorect ball to the cannon, and calls the ready method
     if(targetNode.name == "redInv"){
-      print("red clicked")
       loadedBall = self.childNode(withName: "redInv")?.copy() as! SKSpriteNode
       self.addChild(loadedBall)
       readyRed()
     }
     if(targetNode.name == "blueInv"){
-      print("blue clicked")
       loadedBall = self.childNode(withName: "blueInv")?.copy() as! SKSpriteNode
       self.addChild(loadedBall)
       readyBlue()
     }
     if(targetNode.name == "yellowInv"){
-      print("yellow clicked")
       loadedBall = self.childNode(withName: "yellowInv")?.copy() as! SKSpriteNode
       self.addChild(loadedBall)
       readyYellow()
     }
     for t in touches { self.touchDown(atPoint: t.location(in: self)) }
   }
+  
+  //MARK: - Reset -
+  //Gives a more readable reset method than the sceneManager default
+  func reset(){
+    sceneManager.reloadGameScene(levelNum: levelNum, ballsUsed: ballsUsed)
+  }
+  
+  //MARK: - Ready Methods -
+  //Sets the ballToLaunch properties to that of the clicked item
+  //Primes the cannon so it isn't instantly fired
+  //And moves the ball to the correct spot
   func readyBlue(){
     ballToLaunch = blueLaunchBall
-    //ballPrimed = true;
     cannonNode.primeCannon()
-    print(ballToLaunch)
-    
     loadedBall.position = CGPoint(x: -794, y: -670)
-    print(loadedBall)
-    //ballToLaunch.position = cannonBase.position
   }
   
   func readyRed(){
     ballToLaunch = redLaunchBall
-    //ballPrimed = true;
     cannonNode.primeCannon()
-    print(ballToLaunch)
     loadedBall.position = CGPoint(x: -794, y: -670)
-    
   }
   
   func readyYellow(){
     ballToLaunch = yellowLaunchBall
-    //ballPrimed = true;
     cannonNode.primeCannon()
-    print(ballToLaunch)
     loadedBall.position = CGPoint(x: -794, y: -670)
   }
+  //MARK: - Generic Touch Handlers -
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
   }
@@ -461,8 +432,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     for t in touches { self.touchUp(atPoint: t.location(in: self)) }
   }
   
-  
+  //MARK: - Generic Update Handlers -
   override func update(_ currentTime: TimeInterval) {
-    // Called before each frame is rendered
   }
 }

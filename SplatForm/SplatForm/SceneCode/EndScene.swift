@@ -2,7 +2,7 @@
 //  EndScene.swift
 //  SplatForm
 //
-//  Created by student on 12/9/17.
+//  Created by James McQuaid on 12/9/17.
 //  Copyright © 2017 splat. All rights reserved.
 //
 
