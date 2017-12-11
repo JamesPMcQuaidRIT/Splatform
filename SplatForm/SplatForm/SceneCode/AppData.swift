@@ -9,24 +9,24 @@
 import Foundation
 
 class AppData{
-    
-    static let sharedData = AppData()
-    var lowestBallsUsed:Int = 0{
-        didSet{
-            let defaults = UserDefaults.standard
-            defaults.set(lowestBallsUsed, forKey: ballKey)
-        }
+  
+  static let sharedData = AppData()
+  var lowestBallsUsed:Int = 0{
+    didSet{
+      let defaults = UserDefaults.standard
+      defaults.set(lowestBallsUsed, forKey: ballKey)
     }
-    
-    let ballKey = "lowestBallsUsed"
-    
-    private init(){
-        print("Created AppData instance")
-        readDefaultsData()
-    }
-    
-    private func readDefaultsData(){
-        let defaults = UserDefaults.standard
-        lowestBallsUsed = defaults.integer(forKey: ballKey)
-    }
+  }
+  
+  let ballKey = "lowestBallsUsed"
+  
+  private init(){
+    print("Created AppData instance")
+    readDefaultsData()
+  }
+  
+  private func readDefaultsData(){
+    let defaults = UserDefaults.standard
+    lowestBallsUsed = defaults.integer(forKey: ballKey)
+  }
 }

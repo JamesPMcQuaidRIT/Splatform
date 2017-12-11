@@ -10,11 +10,13 @@ import SpriteKit
 import GameplayKit
 
 class HomeScene: SKScene{
-
+    
+    //MARK: - Level Management -
     var sceneManager:SceneManager = GameViewController()
     var lowestBallsUsed:Int = AppData.sharedData.lowestBallsUsed
     var bestScoreLabel:SKLabelNode?
     
+    //MARK: - Level Loading -
     class func loadLevel(size: CGSize, scaleMode: SKSceneScaleMode, sceneManager:SceneManager) -> HomeScene?{
         let scene = HomeScene(fileNamed: "homeScene")!
         scene.size = size
@@ -24,6 +26,7 @@ class HomeScene: SKScene{
         return scene
     }
     
+    //MARK: - Initiliaztions -
     override func didMove(to view: SKView) {
         if(lowestBallsUsed < 1000){
             for child in self.children {
